@@ -1,0 +1,37 @@
+[
+  
+  { "id_course":0,
+    "id_video":0,
+    "ButtonName": "Python Tutorial for Beginners 1 Install and Setup for Mac and Windows",
+    "sourceVideo": "video/Python Tutorial for Beginners 1 Install and Setup for Mac and Windows.mp4",
+    "etat": "pas encore fait",
+    "level":"beginner",
+    "word1": "Mac and windows",
+    
+    "word2": "python",
+    
+    "word3": "pycharm",
+    "exp1":"for Windows : an area within a frame on a computer screen, in which a particular program is operating or in which information of a particular type is shown , but for MacOs : is a proprietary graphical operating system developed and marketed by Apple Inc. since 2001. It is the primary operating system for Apple's Mac computers. Within the market of desktop, laptop and home computers, and by web usage, it is the second most widely used desktop OS, after Microsoft's Windows NT.[11][12]",
+    "exp2":"Python is an interpreted high-level general-purpose programming language. Python's design philosophy emphasizes code readability with its notable use of significant indentation. Its language constructs as well as its object-oriented approach aim to help programmers write clear, logical code for small and large-scale projects.",
+    "exp3":"PyCharm is an integrated development environment (IDE) used in computer programming, specifically for the Python language. It is developed by the Czech company JetBrains.[5] It provides code analysis, a graphical debugger, an integrated unit tester, integration with version control systems (VCSes), and supports web development with Django as well as data science with Anaconda."
+        
+},
+  { "id_course":0,
+    "id_video":1,
+    "ButtonName": "Python Tutorial for Beginners 1 Install and Setup for Mac and Windows",
+    "sourceVideo": "video/Python Tutorial for Beginners 2 Strings - Working with Textual Data.mp4",
+    "etat": "pas encore fait",
+    "level":"intermediate",
+    
+    "word1": "data types in python",
+    "word2": "String methods",
+    "word3": "etc",
+    "exp1":"Basic Data Types in Python <br/> Integers.<br/> Floating-Point Numbers. <br/>Complex Numbers.<br/> Strings. Escape Sequences in Strings. Raw Strings. Triple-Quoted Strings.<br/> Boolean Type, Boolean Context, and Truthiness",
+    "exp2":"Method Description <br/>capitalize() Converts the first character to upper case <br/>casefold()  Converts string into lower case<br/>center() Returns a centered string<br/>count() Returns the number of times a specified value occurs in a string<br/>encode()  Returns an encoded version of the string<br/>endswith() Returns true if the string ends with the specified value<br/>expandtabs() Sets the tab size of the string<br/>find()  Searches the string for a specified value and returns the position of where it was found<br/>format()  Formats specified values in a string<br/>format_map() Formats specified values in a string",
+    "exp3":"etc"
+
+  }
+
+
+
+]

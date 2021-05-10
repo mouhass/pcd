@@ -1,0 +1,42 @@
+.theGreeting
+{
+    
+    margin-left : 30%;
+   
+}
+
+ .gg{
+    padding-left : 3%;
+}
+
+.preferredCourses
+{
+    width : 18%;
+    height : 100px;
+    background-color : #ccc;
+    margin-left : 10%;
+}
+
+.preferredCourses img
+{
+    width : 100%;
+}
+
+.preferredCourses button
+{
+    width : 70%;
+    margin-left: 13%;
+}
+
+ .logoutBtn
+{
+    margin-left : 90%;
+  
+    
+
+}
+
+.allCourses
+{
+    float : left;
+}

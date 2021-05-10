@@ -1,0 +1,41 @@
+.background img
+{
+    width : 100%;
+    height : 400px;
+   
+}
+
+.logo img
+{
+    height : 80px;
+    width : 100px;
+    margin-left : 5%;
+}
+
+.logo h1
+{
+    margin-left : 7%;
+    font-size: 20px;
+    
+}
+
+.mesTaches
+{
+    margin-top : 30px;
+    background-color : black;
+    width : 30%;
+    height: 50%;
+    float : left;
+
+}
+.mesTaches a h3{
+    color  : white;
+}
+
+.Affichage{
+    float : left;
+    margin-left : 5%;
+    background-color : red;
+    width : 60%;
+    height : 300px;
+}

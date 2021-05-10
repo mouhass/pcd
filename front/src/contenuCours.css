@@ -1,0 +1,33 @@
+.bar
+{
+    background-color: black;
+    height :150px;
+}
+
+.bar .barimg
+{
+   margin-left : 70%;
+   margin-top : -110px;
+   
+  
+}
+
+.bar .bartext
+{
+    color: white; 
+    font-size : 50px;
+    padding-left : 25%;
+    padding-top : 50px;
+}
+
+.contenuCours
+{
+  float : left;
+  background-color : red;
+}
+
+.showVideo
+{
+    float : left;
+    background-color: black;
+}

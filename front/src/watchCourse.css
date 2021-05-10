@@ -1,0 +1,31 @@
+.theVideo
+{
+   margin-left: 50%;
+   float: left;
+}
+
+.theCourses
+{
+   float : left;
+   margin-left: 5%;
+   margin-top : 5%;
+   position: fixed;
+   
+}
+
+.theCourses button
+{
+   width : 550px;
+}
+
+.theVideo .explication
+{
+   width: 500px;
+  margin-left : 15%;
+   
+}
+
+ .theVideo .word
+{
+  
+} 
