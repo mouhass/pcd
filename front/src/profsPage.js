@@ -1,8 +1,11 @@
-import react, { Children, useState } from 'react'
-import './profsPage.css'
+import react, { Children, useState,useEffect } from 'react'
+import './components/css/profsPage.css'
 import Axios from 'axios'
 function ProfPage()
 {  const [maListe , setMaListe] = useState([])
+   const [idprof,setIdprof] = useState('');
+
+
    const Afficher=(props,my)=>{
         return <div>
                {props === 1 ? MesCours():
@@ -16,21 +19,27 @@ function ProfPage()
        </div>
       
    }
+   //--------------------------------------------------MesCours shows the courses that were created by the prof 
+   //--------------------------------------------------so we have to link the two tables 
+/*
+   useEffect(()=>{
+    Axios.get('http://localhost:3003/profsID').then((response)=>{setIdprof(response.data)})
+  },[0]);
 
-   const MesCours=()=>{
-    { Axios.get('http://localhost:3001/cours').then((response)=>{
-       
-        setMaListe(response.data)
-        fff()
-    })
-   }}
+*/
   
-   const fff=()=>{
+   const MesCours=(id)=>{
+    //  Axios.get(`http://localhost:3003/read/${id}`).then((response)=>{setMaListe(response.data)})
+    //    AfficherADroite()
+    }
+
+   
+   const AfficherADroite=()=>{
        let ch=''
     maListe.map((val,key)=>{
                ch = ch +' '+ val.nomCours 
    })
-      document.getElementById('hhh').innerHTML = ch
+      document.getElementById('Droite').innerHTML = ch
      }
 
 
@@ -40,16 +49,16 @@ function ProfPage()
         
 
    const QuiConsulte=()=>{
-       document.getElementById("hhh").innerHTML= "je consulte"
+       document.getElementById("Droite").innerHTML= "je consulte"
    }
 
    const CreerNouveauCours=()=>
    {
-    document.getElementById("hhh").innerHTML= "Avec 9arini vous pouvez créer votre propre cours"
+    document.getElementById("Droite").innerHTML= "Avec 9arini vous pouvez créer votre propre cours"
    }
  
    const ModifierCours=()=>{
-    document.getElementById("hhh").innerHTML= "Avec 9arini vous pouvez modifer <br/><br/>vos cours"
+    document.getElementById("Droite").innerHTML= "Avec 9arini vous pouvez modifer <br/><br/>vos cours"
    }
     return(
         <div>
@@ -72,14 +81,10 @@ function ProfPage()
             </div>
 
             <div className="Affichage" >
-                <h1 id="hhh"></h1>
+                <h1 id="Droite"></h1>
             </div>
 
-           
-            <iframe width="420" height="315"
-src="https://www.youtube.com/embed/tgbNymZ7vqY">
-</iframe>
-
+        
         </div>
     )
 

@@ -11,7 +11,8 @@ import Seeall from './components/seeall';
 import ContenuCours from './contenuCours';
 import UsersPage from './usersPage';
 import ProfPage from './profsPage'
-import AdminPage from './adminPage'
+import AdminPage from './adminPage';
+import Test from './test';
 class App extends React.Component {
    
    render() {
@@ -31,6 +32,7 @@ class App extends React.Component {
                   <Route path="/profsPage" component={ProfPage} exact/>
                   <Route path="/adminPage" component={AdminPage} exact/>
                   <Route path="/contenuCours" component={ContenuCours} exact />
+                  <Route path="/test" component={Test} exact/>
  
                </Switch>
             

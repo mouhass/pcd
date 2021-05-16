@@ -3,7 +3,7 @@ import React from 'react';
 import './css/home.css';
 import {Link} from 'react-router-dom'
 import Header from './header';
-import Courses from '../data/courses.json'
+
 
 
 
@@ -38,7 +38,7 @@ function redirectThePage()
        
       
       
-      {
+      {/* {
       Courses.map(post =>(
         <div class="col-md-3">
 
@@ -57,7 +57,7 @@ function redirectThePage()
         </div>
          
 
-      ) )}
+      ) )} */}
 
 
 

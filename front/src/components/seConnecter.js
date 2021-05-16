@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 //import { authenticationService } from '../services/authentication.service';
 //import { Formik, Field, Form, ErrorMessage } from 'formik';
 //import * as Yup from 'yup';
@@ -8,50 +8,39 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import {Link} from 'react-router-dom'
 import UsersPage from '../usersPage';
 import Userbody from '../userbody';
-import Users from '../data/users.json';
 
+import Axios from 'axios';
 function Seconnecter(props) 
  {
+     const [nom , setNom ] = useState('');
+     const [password,setPassword]=useState('');
+     const [UsersList,setUsersList] = useState([]);
+     const [theResponse,setTheResponse]=useState('');
+     useEffect(()=>{
+        Axios.get('http://localhost:3003/readUsers').then((response)=>{setUsersList(response.data)})
+      },[])
+     const conn =()=>{
+          return <div>
+              {UsersList.find(o => o.nom === nom&&o.password===password&&o.descrimination ===1) ?
+          <div>{props.history.push( "/userspage",{nom : nom,password : password})}</div> : 
+          UsersList.find(o => o.nom === nom&&o.password===password&&o.descrimination ===2) ?
+          <div>{props.history.push( "/profsPage",{nom : nom,password : password})}</div> :  
+          UsersList.find(o => o.nom === nom&&o.password===password&&o.descrimination ===3) ?
+          <div>{props.history.push( "/adminPage",{nom : nom,password : password})}</div> : <div>{setTheResponse("try again")}</div>
+           }
+          </div>
+      }
      
-   
-   function verify()
-   { var i=0;
-    for (i=0; i < Users.length; i++) {
-        if (Users[i].userName.toUpperCase == document.getElementById("h").value.toUpperCase&& Users[i].password.toUpperCase == document.getElementById("j").value.toUpperCase&&Users[i].descri==0)
-            return (
-                <div>
-                    {props.history.push( "/userspage", {name:document.getElementById("h").value,password:document.getElementById("j").value})}
-                </div>
-
-             )
-        if (Users[i].userName.toUpperCase == document.getElementById("h").value.toUpperCase&& Users[i].password.toUpperCase == document.getElementById("j").value.toUpperCase&&Users[i].descri==1)
-            return ( <div>
-                {props.history.push( "/profsPage", {name:document.getElementById("h").value,password:document.getElementById("j").value})}
-            </div> )
-        if (Users[i].userName.toUpperCase == document.getElementById("h").value.toUpperCase&& Users[i].password.toUpperCase == document.getElementById("j").value.toUpperCase&&Users[i].descri==2)
-            return ( <div>
-                {props.history.push( "/adminPage", {name:document.getElementById("h").value,password:document.getElementById("j").value})}
-            </div> )
-    }
-    return false;
-   }
-    
-   
-
     return (
         <div>
             
-                  <input type="text" placeholder="Users's name"  id="h" /><br/><br/>
-                  <input type="password" placeholder="password"   id="j"/> <br/><br/>
-            
+                  <input type="text" placeholder="Users's name" onChange={(event)=>{setNom(event.target.value)}}/><br/><br/>
+                  <input type="password" placeholder="password" onChange={(event)=>{setPassword(event.target.value)}}/> <br/><br/>
+                  
                
-               <button onClick={()=>verify() 
-                    
-                    
-                    
+               <button onClick={()=>conn()}>confirm</button>
+               <h1>{theResponse}</h1>
                 
-
-               }>confirm</button>
              
                 
 
@@ -61,6 +50,5 @@ function Seconnecter(props)
             
            
         </div>
-    
-        )}
+     ) }
 export default Seconnecter;

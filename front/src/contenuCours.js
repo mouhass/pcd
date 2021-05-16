@@ -4,7 +4,7 @@ import './contenuCours.css';
 
 import WatchCourse from './watchCourse';
 import {Provider} from 'react-redux';
-import store from './store/store';
+
 
 
 function ContenuCours(props)
@@ -29,9 +29,9 @@ function ContenuCours(props)
                 
 
 
-            <Provider store={store}>
+           
             <WatchCourse/>
-            </Provider>
+           
 
          </div>
 

@@ -1,7 +1,7 @@
 import react from 'react'
 import './userbody.css'
-//import data from './data.json';
 
+import Axios from 'axios';
 function logout(){
     localStorage.clear();
     window.location.href = '/';
@@ -22,11 +22,15 @@ class Userbody extends react.Component
         
         let x = this.props.theName;
         let y = JSON.parse(x);
+       
+
+
+          
         return(
         <div>
              
             
-             <h2 className="theGreeting">{'Hello'+' ' + y.name}</h2>
+             <h2 className="theGreeting">{'Hello'+' ' + y.nom}</h2>
             <button onClick={()=>logout()} className="logoutBtn">Logout</button>
           
             
