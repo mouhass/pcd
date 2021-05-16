@@ -6,8 +6,8 @@ import './css/seConnecter.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import {Link} from 'react-router-dom'
-import UsersPage from '../usersPage';
-import Userbody from '../userbody';
+import UsersPage from '../interfaces/usersPage';
+import Userbody from '../interfaces/userbody';
 
 import Axios from 'axios';
 function Seconnecter(props) 

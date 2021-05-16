@@ -7,7 +7,7 @@ const usersSchema = new mongoose.Schema(
     nom : String,
     descrimination : Number,
     password : String,
-    cours: [{ type: Schema.Types.ObjectId, ref: 'cours' }]
+    cours: [{ type: Schema.Types.ObjectId, ref: 'Cours' }]
 });
 
 const Users = mongoose.model("Users",usersSchema)

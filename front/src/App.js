@@ -5,12 +5,12 @@ import { history } from './helpers/history';
 import Seconnecter from './components/seConnecter';
 import Home from './components/home.js';
 import PresentationCours from './components/presentationCours';
-import Sinscrire from './sinscrire';
+import Sinscrire from './components/sinscrire';
 import './App.css';
 import Seeall from './components/seeall';
 import ContenuCours from './contenuCours';
-import UsersPage from './usersPage';
-import ProfPage from './profsPage'
+import UsersPage from './interfaces/usersPage';
+import ProfPage from './interfaces/profsPage'
 import AdminPage from './adminPage';
 import Test from './test';
 class App extends React.Component {

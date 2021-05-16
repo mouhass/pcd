@@ -112,14 +112,15 @@ app.delete("/delete/:id",async (req,res)=>{
 
 
 
-app.get("/profsID",async(req,res)=>{
-    const nom = req.body.nom;
-    const password =req.body.password;
-  UsersModel.findOne({'nom' :"Mclean Greene"},'nomCours',function(err,result){
+app.get("/profsCours/:nom/:password",async(req,res)=>{
+    const nom = req.params.nom;
+    const password =req.params.password;
+  UsersModel.findOne({nom : nom , password:password}).populate('cours').exec(function(err,result){
         if(err){
             res.send({message : "pas de cours"});
         }
-        res.send(result);
+       // result.cours.map(x=> console.log(x.nomCours));
+       res.send(result);
     })
 
 })

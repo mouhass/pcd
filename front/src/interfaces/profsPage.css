@@ -22,20 +22,20 @@
 .mesTaches
 {
     margin-top : 30px;
-    background-color : black;
+    
     width : 30%;
     height: 50%;
     float : left;
 
 }
 .mesTaches a h3{
-    color  : white;
+    color  : black;
 }
 
 .Affichage{
     float : left;
     margin-left : 5%;
-    background-color : red;
+    
     width : 60%;
     height : 300px;
 }
