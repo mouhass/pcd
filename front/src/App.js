@@ -11,7 +11,7 @@ import Seeall from './components/seeall';
 import ContenuCours from './contenuCours';
 import UsersPage from './interfaces/usersPage';
 import ProfPage from './interfaces/profsPage'
-import AdminPage from './adminPage';
+import AdminPage from './interfaces/adminPage';
 import Test from './test';
 class App extends React.Component {
    
