@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState, useEffect } from 'react';
 import {BrowserRouter as Router, Route ,Switch} from 'react-router-dom';
+import axios from 'axios';
 
-import { history } from './helpers/history';
+import UserContext from './context/userContext';
 import Seconnecter from './components/seConnecter';
 import Home from './components/home.js';
 import PresentationCours from './components/presentationCours';
@@ -13,12 +14,39 @@ import UsersPage from './interfaces/usersPage';
 import ProfPage from './interfaces/profsPage'
 import AdminPage from './interfaces/adminPage';
 import Test from './test';
-class App extends React.Component {
-   
-   render() {
+
+function App() {
+   const [ userData, setUserData] = useState({
+     token: undefined,
+     user: undefined
+   });
+ 
+   useEffect(() => {
+     const checkLoggedIn = async () => {
+       let token = localStorage.getItem("auth-token");
+       if(token === null){
+         localStorage.setItem("auth-token", "");
+         token = "";
+       }
+       const tokenResponse = await axios.post('http://localhost:3003/users/tokenIsValid', null, {headers: {"x-auth-token": token}});
+       if (tokenResponse.data) {
+         const userRes = await axios.get("http://localhost:3003/users/", {
+           headers: { "x-auth-token": token },
+         });
+         setUserData({
+           token,
+           user: userRes.data,
+         });
+       }
+     }
+ 
+     checkLoggedIn();
+   }, []);
+ 
        return (   
          <Router>
-            <div className="App">                      
+            <div className="App">
+               <UserContext.Provider value={{ userData, setUserData }}>                      
                <Switch>
                   {/* change Route with PrivateRoute after */}
                   <Route exact path="/" component={Home} />
@@ -35,11 +63,11 @@ class App extends React.Component {
                   <Route path="/test" component={Test} exact/>
  
                </Switch>
-            
+               </UserContext.Provider>
             </div>
          </Router>
       );
    }
-}
+
 
 export { App };

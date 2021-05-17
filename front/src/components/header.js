@@ -5,6 +5,7 @@ import './css/header.css'
 
 import {Link} from 'react-router-dom'
 import Seconnecter from './seConnecter';
+import AuthOptions from './AuthOptions';
 import SpecialButton from './../specialButton'
 class Header extends React.Component {
 
@@ -39,22 +40,8 @@ class Header extends React.Component {
                 <div class="widget-header icontext">
                     <a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
                     <div class="text">
-                        <span class="text-muted">Bienvenue {/*props.username*/}!</span>
                         
-                          
-                          <div> 
-                           <Link to={{
-                    pathname: '/sinscrire',
-                    aboutState:{
-                        x :""
-                    }
-                }}
-                  >
-                 S'inscrire
-                 </Link>|
-                            <a href="/seconnecter"> Se connecter</a>
-                          </div>
-                        
+                        <AuthOptions/>
                     </div>
                 </div>
             </div> 

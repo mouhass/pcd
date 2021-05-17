@@ -5,8 +5,9 @@ const usersSchema = new mongoose.Schema(
 
 {
     nom : String,
+    email: { type: String, required: true, unique: true },
     descrimination : Number,
-    password : String,
+    password: { type: String, required: true},
     cours: [{ type: Schema.Types.ObjectId, ref: 'Cours' }]
 });
 

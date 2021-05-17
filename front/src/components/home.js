@@ -5,20 +5,12 @@ import {Link} from 'react-router-dom'
 import Header from './header';
 
 
-
-
-
 function Home(props) {
   
 function redirectThePage()
 {
-
     return true
-
-
-}
-  
-  
+}  
     return (
       <div >
         {/*To-do: username={currentUser}*/}
@@ -34,11 +26,9 @@ function redirectThePage()
           </header>
               
           <div class="row">
-
-       
       
-      
-      {/* {
+      {
+      /* {
       Courses.map(post =>(
         <div class="col-md-3">
 
@@ -55,24 +45,8 @@ function redirectThePage()
         <figcaption class="info-wrap">
         </figcaption>
         </div>
-         
-
       ) )} */}
-
-
-
-
-
-
-
-
-          
-
-
-             
-
   {/* section of icons  --------------------------------------------------------*/}
-
               <section class="objectifs">
               <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <h2 class="ob">Atteignez vos objectifs avec 9arini</h2>
@@ -277,8 +251,7 @@ function redirectThePage()
             </div>
           </section>
         </div>
-        </footer>
-     
+        </footer>     
     </div>
   )
 };

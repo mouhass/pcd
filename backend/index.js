@@ -1,25 +1,36 @@
 const express  = require('express')
 const mongoose = require('mongoose');
 const cors = require('cors');
+require("dotenv").config();
 const app = express();
 app.use(express.json());//middleware recive info front the front in json format
 app.use(cors());
 
-//const jwt = require('jsonwebtoken');
+app.listen(3002,()=>{
+    console.log('server is running on port 3003 .......');
+})
 
-mongoose.connect("mongodb+srv://Mounir:23409234@@cluster0.msjbz.mongodb.net/MOOC?retryWrites=true&w=majority",{useNewUrlParser : true , useUnifiedTopology: true })
+
+mongoose.connect(process.env.MONGODB_CONNECTION_STRING,
+    {
+        useNewUrlParser : true,
+        useUnifiedTopology: true,
+        useCreateIndex: true 
+    },
+    (err) => {
+    if (err) throw err;
+    console.log("MongoDB connection established");
+    });
 app.listen(3003,()=>{
     console.log('server running')
 })
 
+app.use("/users", require("./routes/users"));
 
+const CoursModel = require("./Modele/Cours.model");
+const UsersModel = require("./Modele/Users.model");
 
-const CoursModel = require("./Modele/Cours");
-
-
-const UsersModel = require("./Modele/Users");
-const Users = require('./Modele/Users');
-const { populate } = require('./Modele/Cours');
+const { populate } = require('./Modele/Cours.model');
 //const Cours = require('./Modele/Cours');
 
 app.post("/insert", async (req,res)=>{
@@ -157,14 +168,4 @@ app.get("/readUsers", async (req,res)=>{
         res.send(result);
     })
 
-})
-
-
-
-
-
-
-
-app.listen(3002,()=>{
-    console.log('server is running on port 3003 .......');
 })
