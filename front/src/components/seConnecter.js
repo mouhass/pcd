@@ -7,7 +7,7 @@ import './css/seConnecter.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
-function Seconnecter(props) 
+function Seconnecter() 
  {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -15,7 +15,6 @@ function Seconnecter(props)
 
     const { userData,setUserData } = useContext(UserContext);
     const history = useHistory();
-
 
     const submit = async (e) => {
         e.preventDefault();
@@ -34,10 +33,6 @@ function Seconnecter(props)
         
     };
 
-
-     //useEffect(()=>{
-     //   Axios.get('http://localhost:3003/readUsers').then((response)=>{setUsersList(response.data)})
-      //},[])
 
 return (
         <div className="login">
