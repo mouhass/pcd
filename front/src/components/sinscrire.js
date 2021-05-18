@@ -4,7 +4,6 @@ import axios from 'axios';
 import UserContext from "../context/userContext";
 import ErrorNotice from "./ErrorNotice";
 import './css/sinscrire.css'
-import Axios from 'axios'
 
 function Sinscrire () {    
 
@@ -12,28 +11,29 @@ function Sinscrire () {
     const [nom, setNom] = useState();
     const [password, setPassword] = useState();
     const [passwordCheck, setPasswordCheck] = useState();
+    const [descrimination, setDescrimination] = useState();
     const [error, setError] = useState();
 
     const { setUserData } = useContext(UserContext);
     const history = useHistory();
 
-    var radios = document.getElementsByName('etat');
-    var valDescri=0;
-    for (var i = 0, length = radios.length; i < length; i++) {
-        if (radios[i].checked) {            
-            switch(radios[i].value)
-            {
-                case "etudiant" : valDescri=1;
-                case "prof" : valDescri=2;               
-            }
-                break;
-        }
-    }
 
     const submit = async (e) => {
         e.preventDefault();
         try{
-            const newUser = {email, password, passwordCheck, nom};
+            var radios = document.getElementsByName('etat');
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {            
+                    switch(radios[i].value)
+                    {
+                        case "etudiant" : setDescrimination(1);
+                        case "prof" : setDescrimination(2);               
+                    }
+                        break;
+                }
+            }
+        
+            const newUser = {email, password, passwordCheck, nom, descrimination};
             await axios.post("http://localhost:3003/users/register", newUser);
             const loginResponse = await axios.post("http://localhost:3003/users/login", {
                 email, password
@@ -49,27 +49,6 @@ function Sinscrire () {
         }
         
     };
-
-    const ajouterUtiliateur =()=>{
-        //Axios.post('http://localhost:3003/create',{Nomutilisateur: "document.ged().value",
-        // mdp: "document.getElementById().value",etat : valDescri}).then(()=>{
-        //     console.log("success!!!")
-        // })
-    }
-
-    const AfficherUtilisateurs = ()=>{
-        Axios.get('http://localhost:3003/utilisateurs').then((response)=>{
-             console.log(response)
-         })
-
-    }
-
-
-
-   const handleClick=()=>{
-    this.setState(({type}) => ({
-    type: type === 'text' ? 'password' : 'text'
-    }))}
 
 
     return(

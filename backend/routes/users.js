@@ -7,9 +7,7 @@ const User = require("../Modele/Users.model");
 
 router.post("/register", async (req, res) => {
     try {
-      let { email, password, passwordCheck, nom } = req.body;
-  
-      // validate
+      let { email, password, passwordCheck, nom, descrimination } = req.body;
   
       if (!email || !password || !passwordCheck)
         return res.status(400).json({ msg: "Not all fields have been entered." });
@@ -37,7 +35,7 @@ router.post("/register", async (req, res) => {
         nom,
         email,
         password: password,
-        descrimination : 1
+        descrimination : descrimination
       });
       const savedUser = await newUser.save();
       res.json(savedUser);
@@ -50,7 +48,6 @@ router.post("/login", async (req, res) => {
     try {
       const { email, password } = req.body;
   
-      // validate
       if (!email || !password)
         return res.status(400).json({ msg: "Not all fields have been entered." });
   
@@ -74,28 +71,6 @@ router.post("/login", async (req, res) => {
     }
   });
 
-router.get("/insertUser", async (req,res)=>{
-        const users = new UsersModel({nom : "helloWorld" , descrimination:1 , password : "nvdfnfd" });
-    try{
-        await users.save();
-        res.send("inserted data");
-    }
-    catch(err){
-        console.log(err);
-    }
-
-});
-
-router.get("/readUsers", async (req,res)=>{
-    
-    UsersModel.find({},(err,result)=>{
-        if(err){
-            res.send(err);
-        }
-        res.send(result);
-    })
-
-})
 
 router.delete("/delete", auth, async (req, res) => {
     try {
