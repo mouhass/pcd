@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect,useCallback ,useRef} from 'react';
 import {BrowserRouter as Router, Route ,Switch} from 'react-router-dom';
 import axios from 'axios';
 
@@ -26,14 +26,19 @@ function App() {
       cours: "undefined"
     });
  
- 
-   useEffect(() => {
 
+    
+         let mounted = true;
+   useEffect(() => {
+    
+   mounted = true;
       const getCours = async () =>{
+        
          const coursRes = await axios.get('http://localhost:3003/cours/all');
          setCoursData({
             cours: coursRes.data.cours,
           });
+         
       }
 
      const checkLoggedIn = async () => {
@@ -49,14 +54,20 @@ function App() {
          });
          setUserData({
            token,
-           user: userRes.data,
+           user: userRes.data
          });
        }
      }
  
      getCours();
      checkLoggedIn();
-   }, []);
+   
+     
+   
+
+return ()=>{mounted = false}
+   
+}, []);
  
        return (   
          <Router>

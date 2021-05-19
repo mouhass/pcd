@@ -11,11 +11,12 @@ const coursSchema = new mongoose.Schema(
     lessons : [{
                 sourceVideo :  String,
                 niveau :  String,
-                nomBouton :String,
+                
                 Mots : {
                             mot :  String,
                             definition :  String,
-                            niveau :  String
+                            niveau :  String,
+                            score : Number
                       }
 
 
