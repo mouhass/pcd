@@ -13,7 +13,7 @@ function UsersPage(props)
             <br/><br/><br/> <br/><br/><br/>
             <br/><br/><br/> <br/><br/><br/> <br/><br/><br/> 
                       
-            <Userbody theName={JSON.stringify(props.history.location.state)} />
+            <Userbody />
             
         </div>
     )

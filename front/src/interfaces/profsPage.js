@@ -1,11 +1,27 @@
-import react, { Children, useState,useEffect } from 'react'
+import react, { Children, useState,useEffect,useContext } from 'react'
 import './profsPage.css'
 import Axios from 'axios'
+import Formulaire from './creationCours';
+import UserContext from "../context/userContext";
+import CoursContext from "../context/coursContext";
+
+
+
 function ProfPage(props)
-{  const [maListe , setMaListe] = useState([])
+{    const { userData,setUserData } = useContext(UserContext);
+    const { coursData,setCoursData } = useContext(CoursContext);
+    const myArray = [];
+    {for(let i=0;i<coursData.cours.length;i++)
+    
+    if(coursData.cours[i].nomCours&&coursData.cours[i].idProf === userData.user.id)    {myArray.push(<h1>{coursData.cours[i].nomCours}</h1>)};
+    }
+    
+
+     const [maListe , setMaListe] = useState([])
    const [idprof,setIdprof] = useState('');
-   const x =JSON.stringify(props.history.location.state);
-   const  y = JSON.parse(x);
+     
+//    const x =JSON.stringify(props.history.location.state);
+//    const  y = JSON.parse(x);
 
    const Afficher=(props,my)=>{
         return <div>
@@ -24,10 +40,10 @@ function ProfPage(props)
    //--------------------------------------------------so we have to link the two tables 
 
    const MesCours=()=>{
-    Axios.get(`http://localhost:3003/profsCours/${y.nom}/${y.password}`).then((response)=>{setMaListe(response.data.cours)
-  },[]);
-   AfficherADroite();
-}
+//    Axios.get(`http://localhost:3003/profsCours/${y.nom}/${y.password}`).then((response)=>{setMaListe(response.data.cours)
+//   },[]);
+//    AfficherADroite();
+ }
 
 
   
@@ -52,15 +68,35 @@ function ProfPage(props)
 
    const CreerNouveauCours=()=>
    {
-    document.getElementById("Droite").innerHTML= "Avec 9arini vous pouvez créer votre propre cours"
+    document.getElementById("Droite").innerHTML="<form>"+
+    
+    "<label>Nom du cours</label><br/>"+
+    "<input type=\"test\"  name=\"nomCours\"    /><br/>"+
+    "<label>Description</label><br/>"+ 
+    "<input type=\"text\" name=\"description\"/><br/>"+ 
+    "<label>Duree</label><br/>"+
+    "<input type=\"number\" name=\"duree\"/><br/>"+
+    "<div>"+
+    "<label>URL du video</label><br/>"+
+    "<input type=\"text\" name=\"sourceVideo\" /><br/>"+
+    "<label>Niveau</label><br/>"+
+    "<input type=\"text\"/><br/>"+
+    "</div>";
+
+
+
+    
+    
+    
+    
    }
  
    const ModifierCours=()=>{
-    document.getElementById("Droite").innerHTML= "Avec 9arini vous pouvez modifer <br/><br/>vos cours"
+    document.getElementById("Droite").innerHTML= "modifie un cours"
    }
     return(
         <div>
-           
+           {myArray}
             <div className="logo">
                 <img src="assets/images/logos/lg.jpg"/> 
                 <h1>9arini</h1>
@@ -83,9 +119,10 @@ function ProfPage(props)
                 <h1 id="Droite"></h1>
             </div>
 
-        
+            
         </div>
     )
 
     }
+
 export default ProfPage;

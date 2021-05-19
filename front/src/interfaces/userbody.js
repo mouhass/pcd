@@ -1,53 +1,55 @@
-import react from 'react'
+import react,{useContext, useEffect} from 'react'
 import './userbody.css'
+import UserContext from "../context/userContext";
+import CoursContext from "../context/coursContext";
 
 import Axios from 'axios';
-function logout(){
-    localStorage.clear();
-    window.location.href = '/';
-}
-class Userbody extends react.Component
+import CoursCard from './CoursCards';
+
+function Userbody(props)
 {   
-    constructor(props)
-    {
-        super(props);     
-    }
-    render()
-    {   
-        let x = this.props.theName;
-        let y = JSON.parse(x);       
+    
+       let variable = <div></div>;
+        const { userData,setUserData } = useContext(UserContext);
+        const { coursData,setCoursData } = useContext(CoursContext);
+
+       
+    //      {for(let i=0;i<coursData.cours.length;i++){
+    //        for(let j=0;j<11;j++)
+    //            {if(coursData._id === userData.user.user.Avancements.idCours)
+    //             console.log(coursData[i].nomCours)
+
+    //      }
+    //     }
+    // }s
+        {console.log(coursData.cours)}
+        {console.log("------------")}
+        
+
         return(
         <div>
-             <h2 className="theGreeting">{'Hello'+' ' + y.nom}</h2>
-            <button onClick={()=>logout()} className="logoutBtn">Logout</button>
+            {variable}
+             {userData.user ? (
+                
+                <div><h1 class="theGreeting">Bienvenue {userData.user.user.nom}!</h1><br/></div>
+               ): 
+               <div></div>
+            }
+           
             <br/><br/><br/><br/>
-            <a> <h1 className="gg">Preferred courses</h1></a>        
-            <hr/>
-            <div className="preferredCourses">             
-            <img src="assets/images/python.jpg"/><br/><br/><br/><br/><br/>
-            <a href="/cc"> <button>Start learning the course</button></a>
+            <div className="ajustement">
+               <h1>Mes cours preferé</h1>
+               <div className="myCourses">
+                 {userData.user ? userData.user.user.Avancements.map(x=>     coursData.cours ? coursData.cours.map(y=>      y._id===x.idCours ?    <CoursCard data={y._id} />: <div></div>) : <div></div>) : <div></div>}
+               </div>
+
             </div>
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-           
-           <h1>See all the courses</h1>
-           <hr/>
-           <div className="allCourses">
-           <img src="assets/images/python.jpg"/>
-               <a href="/cc"> <button>Start learning the course</button></a>
-
-            <img src="assets/images/python.jpg"/>
-               <a href="/cc"> <button>Start learning the course</button></a>
-           
-            <img src="assets/images/python.jpg"/>
-               <a href="/cc"> <button>Start learning the course</button></a>
+         
             
-            <img src="assets/images/python.jpg"/>
-               <a href="/cc"> <button>Start learning the course</button></a>
-
-           </div>         
+               
         </div>    
     )
         }
-}
+
 
 export default Userbody;

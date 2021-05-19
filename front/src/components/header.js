@@ -1,17 +1,37 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './css/header.css'
-//import { authenticationService } from '../services/authentication.service';
-//import { history } from '../helpers/history';
+
+import UserContext from "../context/userContext";
+import { useHistory } from 'react-router-dom';
 
 import {Link} from 'react-router-dom'
 import Seconnecter from './seConnecter';
 import AuthOptions from './AuthOptions';
 import SpecialButton from './../specialButton'
-class Header extends React.Component {
+function  Header(){
+
 
   
+    
 
-  render() {
+    const { userData,setUserData } = useContext(UserContext);
+    const history = useHistory();
+    {console.log(userData.user)}
+
+    const diviser=()=>{
+       if(userData.user.user){
+       return <div>
+          {userData.user.user.descrimination ===1 ?
+      <div>{history.push( "/userspage")}</div> : 
+      userData.user.user.descrimination ===2 ?
+      <div>{history.push( "/profsPage")}</div> :  
+      userData.user.user.descrimination ===3 ?
+      <div>{history.push( "/adminPage")}</div> : <div></div>
+      }
+      </div>}
+      }
+
+
    return(
     <header class="section-header">
     <section class="header-main border-bottom" >
@@ -38,11 +58,15 @@ class Header extends React.Component {
             <div class="widgets-wrap float-md-right">
                
                 <div class="widget-header icontext">
-                    <a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
+
+                  
+                    <a onClick={()=>diviser()} class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
+                   
                     <div class="text">
                         
                         <AuthOptions/>
                     </div>
+                
                 </div>
             </div> 
         </div> 
@@ -61,7 +85,7 @@ class Header extends React.Component {
     </header>
 )
 }
-}
+
 
 
 export default Header;

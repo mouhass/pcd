@@ -9,6 +9,7 @@ const usersSchema = new mongoose.Schema(
     descrimination : Number,
     password: { type: String, required: true},
     cours: [{ type: Schema.Types.ObjectId, ref: 'Cours' }]
+    
 });
 
 const Users = mongoose.model("Users",usersSchema)

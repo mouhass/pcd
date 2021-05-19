@@ -1,0 +1,15 @@
+.card{
+    width : 300px;
+    height : 200px;
+    background-color : #ccc;
+    float : left;
+    margin-right : 5%;
+    margin-bottom: 20%;
+
+    
+}
+
+.card .cardTitle
+{
+    text-align: center;
+}

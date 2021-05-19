@@ -21,7 +21,7 @@ function AuthOptions () {
             <br/>
             {userData.user ? (
                 <>
-                <span class="text-muted">Bienvenue {userData.user.nom}!</span><br/>
+                <span class="text-muted">Bienvenue {userData.user.user.nom}!</span><br/>
                 <a href='#' onClick={logout}>Se déconnecter</a>
                 </>
             ) : (

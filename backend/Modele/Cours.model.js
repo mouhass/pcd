@@ -6,7 +6,7 @@ const coursSchema = new mongoose.Schema(
     nomCours :  String,
     idProf : {type: Schema.Types.ObjectId, ref: 'Users'},
     description :  String,
-    duree : Number,
+    durée : Number,
 
     lessons : [{
                 sourceVideo :  String,
