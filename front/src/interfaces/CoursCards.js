@@ -5,9 +5,11 @@ import UserContext from "../context/userContext";
 import CoursContext from "../context/coursContext";
 
 function CoursCard(props){
-
-     
-     //const history  = useHistory();
+    const history = useHistory();
+    
+    const redirigi=(id)=>{
+    history.push("/contenuCours",{idd : id});
+    }
      
      const { userData,setUserData } = useContext(UserContext);
      const { coursData,setCoursData } = useContext(CoursContext);
@@ -16,7 +18,7 @@ function CoursCard(props){
         <div>
                 <div className="card">
                     <img src="assets/images/python.jpg"/>
-                   <h3 className="cardTitle"> <a >{  coursData.cours._id ===  props.data ?  coursData.cours.nomCours : <div></div>}</a></h3>
+                   <h3 className="cardTitle"> <a onClick={()=>redirigi(props.data)}>{ coursData.cours.map(x=> x._id ===  props.data ?  x.nomCours : <div></div>)}</a></h3>
                   
                 </div>
         </div>

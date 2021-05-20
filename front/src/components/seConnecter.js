@@ -23,7 +23,7 @@ function Seconnecter()
             const loginResponse = await axios.post("http://localhost:3003/users/login", loginUser);
             setUserData({
                 token: loginResponse.data.token,
-                user: loginResponse.data.user
+                user: loginResponse.data
             });
             localStorage.setItem("auth-token", loginResponse.data.token);
             history.push("/");

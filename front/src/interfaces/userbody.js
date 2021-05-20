@@ -1,4 +1,4 @@
-import react,{useContext, useEffect} from 'react'
+import react,{useContext, useEffect, useState} from 'react'
 import './userbody.css'
 import UserContext from "../context/userContext";
 import CoursContext from "../context/coursContext";
@@ -25,7 +25,17 @@ function Userbody(props)
         {console.log(coursData.cours)}
         {console.log("------------")}
         
+            
 
+        let liste = [];
+        {if(userData.user){for(let i=0;i<userData.user.user.Avancements.length;i++)
+           liste.push(userData.user.user.Avancements[i].idCours);
+        } }
+         console.log(liste);
+
+
+       
+            
         return(
         <div>
             {variable}
@@ -40,7 +50,10 @@ function Userbody(props)
             <div className="ajustement">
                <h1>Mes cours preferé</h1>
                <div className="myCourses">
-                 {userData.user ? userData.user.user.Avancements.map(x=>     coursData.cours ? coursData.cours.map(y=>      y._id===x.idCours ?    <CoursCard data={y._id} />: <div></div>) : <div></div>) : <div></div>}
+                   
+                   
+             {  userData.user ? Array.from(userData.user.user.Avancements).map(x=>     coursData.cours ? Array.from(coursData.cours).map(y=>      y._id===x.idCours ?    <CoursCard data={y._id} />: <div></div>) : <div></div>) : <div></div>}
+                
                </div>
 
             </div>
