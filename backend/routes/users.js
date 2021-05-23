@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const axios = require('axios')
 const auth = require("../middlewares/auth");
 const User = require("../Modele/Users.model");
 
@@ -72,6 +73,7 @@ router.post("/login", async (req, res) => {
   });
 
 
+
 router.delete("/delete", auth, async (req, res) => {
     try {
       const deletedUser = await User.findByIdAndDelete(req.user);
@@ -102,5 +104,19 @@ router.get("/", auth, async (req, res) => {
     const user = await User.findById(req.user);
     res.json({user});
   });
-  
+
+  router.post("/niveau", async (req, res) => {
+    axios
+    .post('http://127.0.0.1:9000/api', [[req.body.score ,req.body.nbreLesson]])
+    .then(r => {
+      console.log(r.data);
+      res.send(r.data);
+    })
+    .catch(error => {
+      console.error(error)
+    })
+  });
+
+
+
   module.exports = router;
