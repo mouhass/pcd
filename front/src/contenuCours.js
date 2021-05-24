@@ -1,9 +1,10 @@
-import react ,{useContext}from 'react'
+import react ,{useContext, useState,useEffect}from 'react'
 import './contenuCours.css'
 import VoirCours from './VoirCours';
 import UserContext from "./context/userContext";
 import CoursContext from "./context/coursContext";
 import ReactPlayer from "react-player"
+import Axios from 'axios'
 function ContenuCours(props)
 {
      const x= JSON.stringify(props.history.location.state);
@@ -18,7 +19,7 @@ function ContenuCours(props)
    
     }
 
-
+     const [listUsers,setLitsUsers] = useState([]);
     const { userData,setUserData } = useContext(UserContext);
     const { coursData,setCoursData } = useContext(CoursContext);
 
@@ -36,20 +37,44 @@ function ContenuCours(props)
         pop.classList.toggle('active');
     }
     let nomDuCours="";
+    
     {Array.from(coursData.cours).map(x=> x._id===y.idd ?  nomDuCours=x.nomCours : <div></div>    )}
     let theID = "";
     let nomProf = "bbhfy";
-    {Array.from(coursData.cours).map(x=>x._id==y.idd ?  theID=x.idProf :  <div></div>)}
-    {userData.user ? Array.from(userData.user.user).map(w=> w._id==theID ? nomProf = "w.nom" :<div></div>) : <div>{console.log("fuck ")}</div>}
+
+    useEffect(()=>{
+        Axios.get('http://localhost:3003/readUsers').then((response)=>{setLitsUsers(response.data)})
+      },[]);
+
+    
+
+    {Array.from(coursData.cours).map(x=>x._id===y.idd ?  theID=x.idProf :  <div></div>)}
+   
+    //{console.log("e5dem ya weld el 9a7ba")}
+    {listUsers.map(x=> x._id===theID ? nomProf=x.nom : <div></div>)}
+
+     let mot1="";
+     let mot2="";
+     let mot3="";
+     let def1="";
+     let def2="";
+     let def3="";
+     let idLessonss="";
+     {userData.user ? Array.from(userData.user.user.Avancements).map(q=>q.idCours===y.idd   ? idLessonss = q.idLesson : <div></div>   )  : <div></div>}
+     let maListe = [];
+    { coursData.cours ? Array.from(coursData.cours).map(q=> q._id===y.idd ? q.lessons.map(x=>x.id===idLessonss ?  x.Mots.map(z=>maListe.push(z.mot)) :<div></div>) : <div></div> ) : <div></div>}
+    { coursData.cours ? Array.from(coursData.cours).map(q=> q._id===y.idd ? q.lessons.map(x=>x.id===idLessonss ?  x.Mots.map(z=>maListe.push(z.definition)) :<div></div>) : <div></div> ) : <div></div>}
+
+    {mot1=maListe[0]; mot2=maListe[1];mot3=maListe[2] ;def1=maListe[3]; def2=maListe[4];def3=maListe[5] }
+
+
 
     return(
         <div >
-                 {/* <h1>hello world {userData.user.user.nomCours}  , {y.idProf}</h1>
-                <h1>{y.description} ,  {y.duree}</h1>
-                {y.lessons.map(w=>console.log(w.sourceVideo))} */}
-               
+                
                 <div className="navbarr">
                     <h3>{nomDuCours}</h3>
+
                     <p>Réalisé par l'enseignant {nomProf} </p>
                     <img  src="assets/images/python.jpg"/>
                 </div>
@@ -62,23 +87,23 @@ function ContenuCours(props)
 
                     </div>
                     <div id="popup1" className="popup">
-                        <h1>hello1  </h1>
+                        <h1>{def1}  </h1>
                         <button onClick={()=>toggle1()}>close</button>
                     </div>
                     <div id="popup2" className="popup">
-                        <h1>hello2  </h1>
+                        <h1>{def2}  </h1>
                         <button onClick={()=>toggle2()}>close</button>
                     </div>
                     <div id="popup3" className="popup">
-                        <h1>hello3  </h1>
+                        <h1>{def3}  </h1>
                         <button onClick={()=>toggle3()}>close</button>
                     </div>
                     
                     <div className="Droite">
                         <h1 id="inlineFrameExample">
-                            <h1 onClick={()=>toggle1()}>nzeonfoef</h1>
-                            <h1 onClick={()=>toggle2()}>noezfezf</h1>
-                            <h1 onClick={()=>toggle3()}>fzefzefefez</h1>
+                            <h1 onClick={()=>toggle1()}>{mot1}</h1>
+                            <h1 onClick={()=>toggle2()}>{mot2}</h1>
+                            <h1 onClick={()=>toggle3()}>{mot3}</h1>
                        </h1>
 
                     </div>

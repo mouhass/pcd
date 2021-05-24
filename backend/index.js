@@ -59,6 +59,15 @@ app.delete("/delete/:id",async (req,res)=>{
      }
 })
 
+app.get("/readUsers",async(req,res)=>{
+    UsersModel.find({},(err,result)=>{
+        if(err){
+            res.send(err)
+        }
+        res.send(result);
+    })
+})
+
 
 
 app.get("/profsCours/:nom/:password",async(req,res)=>{
