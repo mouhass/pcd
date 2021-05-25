@@ -7,35 +7,20 @@ import ReactPlayer from "react-player"
 import Axios from 'axios'
 function ContenuCours(props)
 {
+
+    const [listUsers,setLitsUsers] = useState([]);
+    const { userData,setUserData } = useContext(UserContext);
+    const { coursData,setCoursData } = useContext(CoursContext);
      const x= JSON.stringify(props.history.location.state);
      const y = JSON.parse(x);
-    
+
      const leVideo=(d)=>{
         document.getElementById("inlineFrameExample").innerHTML = <iframe id="inlineFrameExample"
                         title="Inline Frame Example"
                         width="300" src="https://youtu.be/HWxBtxPBCAc?list=PLrSOXFDHBtfHg8fWBd7sKPxEmahwyVBkC">
                      </iframe>
-                    
-   
     }
 
-     const [listUsers,setLitsUsers] = useState([]);
-    const { userData,setUserData } = useContext(UserContext);
-    const { coursData,setCoursData } = useContext(CoursContext);
-
-    const toggle1=()=>{
-        var pop = document.getElementById("popup1");
-        pop.classList.toggle('active');
-    }
-
-    const toggle2=()=>{
-        var pop = document.getElementById("popup2");
-        pop.classList.toggle('active');
-    }
-    const toggle3=()=>{
-        var pop = document.getElementById("popup3");
-        pop.classList.toggle('active');
-    }
     let nomDuCours="";
     
     {Array.from(coursData.cours).map(x=> x._id===y.idd ?  nomDuCours=x.nomCours : <div></div>    )}
@@ -50,7 +35,6 @@ function ContenuCours(props)
 
     {Array.from(coursData.cours).map(x=>x._id===y.idd ?  theID=x.idProf :  <div></div>)}
    
-    //{console.log("e5dem ya weld el 9a7ba")}
     {listUsers.map(x=> x._id===theID ? nomProf=x.nom : <div></div>)}
 
      let mot1="";
@@ -60,13 +44,52 @@ function ContenuCours(props)
      let def2="";
      let def3="";
      let idLessonss="";
-     {userData.user ? Array.from(userData.user.user.Avancements).map(q=>q.idCours===y.idd   ? idLessonss = q.idLesson : <div></div>   )  : <div></div>}
+     let avancement;
+     if (userData.user){ 
+         Array.from(userData.user.user.Avancements).map(q=> {
+             if (q.idCours===y.idd){
+                avancement = q;
+                idLessonss = q.idLesson;
+             }
+            })  
+    }
+    const toggle1=()=>{
+        var pop = document.getElementById("popup1");
+        pop.classList.toggle('active');
+    }
+
+    const toggle2=()=>{
+        var pop = document.getElementById("popup2");
+        pop.classList.toggle('active');
+        avancement.score++;
+    }
+    const toggle3=()=>{
+        var pop = document.getElementById("popup3");
+        pop.classList.toggle('active');
+        avancement.score +=3;
+    }
+
+
      let maListe = [];
     { coursData.cours ? Array.from(coursData.cours).map(q=> q._id===y.idd ? q.lessons.map(x=>x.id===idLessonss ?  x.Mots.map(z=>maListe.push(z.mot)) :<div></div>) : <div></div> ) : <div></div>}
     { coursData.cours ? Array.from(coursData.cours).map(q=> q._id===y.idd ? q.lessons.map(x=>x.id===idLessonss ?  x.Mots.map(z=>maListe.push(z.definition)) :<div></div>) : <div></div> ) : <div></div>}
 
-    {mot1=maListe[0]; mot2=maListe[1];mot3=maListe[2] ;def1=maListe[3]; def2=maListe[4];def3=maListe[5] }
+    {mot1=maListe[0]; mot2=maListe[1];mot3=maListe[2];def1=maListe[3]; def2=maListe[4];def3=maListe[5] }
 
+    const updateNiveau=async ()=>{
+        const res = await Axios.post('http://localhost:3003/users/niveau',{score: avancement.score, nbrelesson: avancement.nbrelesson});
+        avancement.niveau = res.data;
+        avancement.nbrelesson++;
+        Array.from(userData.user.user.Avancements).map(q=> {
+            if (q.idCours===y.idd){
+               q=avancement;
+            }
+        })
+        console.log(userData.user.user);
+        console.log(avancement);
+        let q = await Axios.post('http://localhost:3003/users/update', userData.user.user);
+           setUserData(userData);
+     }
 
 
     return(
@@ -107,6 +130,7 @@ function ContenuCours(props)
                        </h1>
 
                     </div>
+                    <button onClick={()=>updateNiveau()}>NEXT</button>
                 </div>
 
         </div>

@@ -73,9 +73,8 @@ return ()=>{mounted = false}
          <Router>
             <div className="App">
                <UserContext.Provider value={{ userData, setUserData }}>   
-                  <CoursContext.Provider value={{ coursData, setCoursData }}>   
+                  <CoursContext.Provider value={{ coursData, setCoursData }}>  
                      <Switch>
-                        {/* change Route with PrivateRoute after */}
                         <Route exact path="/" component={Home} />
                         <Route path="/seConnecter" component={Seconnecter} exact />
                         <Route  path="/sinscrire" component={Sinscrire} exact />

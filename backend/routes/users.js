@@ -58,7 +58,7 @@ router.post("/login", async (req, res) => {
           .status(400)
           .json({ msg: "No account with this email has been registered." });
   
-      const isMatch = await bcrypt.compare(password, user.password);
+      //const isMatch = await bcrypt.compare(password, user.password);
       if (password!=user.password) return res.status(400).json({ msg: "Invalid credentials." });
   
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
@@ -82,6 +82,29 @@ router.delete("/delete", auth, async (req, res) => {
       res.status(500).json({ error: err.message });
     }
   });
+
+  router.post("/update", async (req, res) => {
+    try {
+      console.log(req.body);
+
+      const r = await User.update({_id:req.body._id}, req.body);
+      res.json(r);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+
+
+router.delete("/delete", auth, async (req, res) => {
+    try {
+      const deletedUser = await User.findByIdAndDelete(req.user);
+      res.json(deletedUser);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
   
 router.post("/tokenIsValid", async (req, res) => {
     try {
@@ -107,10 +130,12 @@ router.get("/", auth, async (req, res) => {
 
   router.post("/niveau", async (req, res) => {
     axios
-    .post('http://127.0.0.1:9000/api', [[req.body.score ,req.body.nbreLesson]])
+    .post('http://127.0.0.1:9000/api', [[req.body.score ,req.body.nbrelesson]])
     .then(r => {
-      console.log(r.data);
-      res.send(r.data);
+      let niveau="debutant";
+      if (r.data==1)  niveau="intermediaire"
+        else if(r.data==2)  niveau="avancé"
+      res.send(niveau);
     })
     .catch(error => {
       console.error(error)

@@ -13,7 +13,6 @@ function redirectThePage()
 }  
     return (
       <div >
-        {/*To-do: username={currentUser}*/}
         <Header/>        
           <img src="assets/images/main.jpg" className="theMainImage"/>
           <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

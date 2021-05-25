@@ -1,18 +1,9 @@
 import React, { useContext } from 'react';
 import './css/header.css'
-
 import UserContext from "../context/userContext";
 import { useHistory } from 'react-router-dom';
-
-import {Link} from 'react-router-dom'
-import Seconnecter from './seConnecter';
 import AuthOptions from './AuthOptions';
-import SpecialButton from './../specialButton'
 function  Header(){
-
-
-  
-    
 
     const { userData,setUserData } = useContext(UserContext);
     const history = useHistory();
