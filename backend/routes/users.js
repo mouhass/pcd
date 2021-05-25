@@ -85,8 +85,6 @@ router.delete("/delete", auth, async (req, res) => {
 
   router.post("/update", async (req, res) => {
     try {
-      console.log(req.body);
-
       const r = await User.update({_id:req.body._id}, req.body);
       res.json(r);
     } catch (err) {
