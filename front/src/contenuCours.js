@@ -25,7 +25,7 @@ function ContenuCours(props)
     
     {Array.from(coursData.cours).map(x=> x._id===y.idd ?  nomDuCours=x.nomCours : <div></div>    )}
     let theID = "";
-    let nomProf = "bbhfy";
+    let nomProf = "";
 
     useEffect(()=>{
         Axios.get('http://localhost:3003/readUsers').then((response)=>{setLitsUsers(response.data)})
@@ -93,9 +93,11 @@ function ContenuCours(props)
 
 
     return(
-        <div >
+        <div >   
+                
                 
                 <div className="navbarr">
+                
                     <h3>{nomDuCours}</h3>
 
                     <p>Réalisé par l'enseignant {nomProf} </p>
@@ -130,8 +132,12 @@ function ContenuCours(props)
                        </h1>
 
                     </div>
-                    <button onClick={()=>updateNiveau()}>NEXT</button>
-                </div>
+                    <button onClick={()=>updateNiveau()}   className="theButton">NEXT</button>
+                  </div>
+
+                  <div className="retourArriere">
+                  <a href="/usersPage">Retour au profil</a> 
+                  </div>
 
         </div>
     )

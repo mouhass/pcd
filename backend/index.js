@@ -68,6 +68,14 @@ app.get("/readUsers",async(req,res)=>{
     })
 })
 
+app.get("/readCourses",(req,res)=>{
+    CoursModel.find({},(err,result)=>{
+        if(err){
+            res.send(err);
+        }
+        res.send(result);
+    })
+})
 
 
 app.get("/profsCours/:nom/:password",async(req,res)=>{

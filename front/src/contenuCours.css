@@ -1,9 +1,15 @@
 
 
 .navbarr{
-    background-color: red;
+    background-color: #FF6347;
     color : white;
     height : 150px;
+    padding-left : 15%;
+
+}
+
+.navbarr h3{
+    font-size: 50px;
 }
 
 .navbar p
@@ -17,7 +23,7 @@
 
 .navbarr img{
     margin-left : 70%;
-    margin-top : -67px;
+    margin-top : -95px;
 }
 
 .leBody{
@@ -105,4 +111,25 @@
 .popup{
     border-radius: 27px;
 
+}
+
+.theButton{
+    margin-left : 78%;
+    margin-top : 10%;
+    width : 130px;
+    height : 60px;
+    background-color: #ADD8E6;
+    color : red;
+    border-radius: 50px;
+
+}
+
+.theButton:hover{
+    transform : scale(1.07,1.07);
+}
+
+
+.retourArriere{
+    margin-left : 1%;
+    margin-top : 3%;
 }

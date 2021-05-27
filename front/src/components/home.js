@@ -1,16 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 //import { authenticationService } from '../services/authentication.service';
 import './css/home.css';
 import {Link} from 'react-router-dom'
 import Header from './header';
-
-
+import Axios from 'axios';
+import OurCourses from './OurCourses';
+import Pagination from './Pagination';
+import ReactPaginate from 'react-paginate';
 function Home(props) {
+
+
+
+
+  const [listeCours,setListeCours]= useState([]);
+  const [pageNumber,setPageNumber]=useState(0);
+  const coursPerPage = 9;
+  const pagesVisited = pageNumber * coursPerPage;
+
+
+
+  useEffect(()=>{
+    Axios.get('http://localhost:3003/readCourses').then((response)=>{setListeCours(response.data)})
+  },[])
   
-function redirectThePage()
-{
-    return true
-}  
+   const displayCourses = listeCours.slice(pagesVisited,pagesVisited + coursPerPage)
+    .map(x=><h1 className="cardTitle"><OurCourses data={x._id} /></h1>);
+
+
+ const pageCount = Math.ceil(listeCours.length /coursPerPage );
+const changePage=({selected})=>{
+    setPageNumber(selected);
+}
+
+
+
+
     return (
       <div >
         <Header/>        
@@ -20,31 +44,24 @@ function redirectThePage()
           <div class="container">
           <header class="section-heading">
               <a href="/seeall" class="btn btn-outline-primary float-right">See all</a>
-              <h3 class="section-title">Popular courses</h3>
+              <h3 class="section-title">Cours populaires</h3>
               <br/><br/><br/>
           </header>
-              
+          
           <div class="row">
-      
-      {
-      /* {
-      Courses.map(post =>(
-        <div class="col-md-3">
-
-       <img src={post.imageSource} /> 
-       <h4 style={{textAlign: "center"}}>{post.courseName}</h4>
-        <p  style={{textAlign: "center"}}onClick={()=>redirectThePage() ? 
-        
-        <a>{props.history.push( "/presentationCours", {name:post.courseName,imageCours:post.imageSource,desc:post.description,duree:post.duree })}
-        </a>
-      :
-      <h1></h1>
-
-      } >More information</p>
-        <figcaption class="info-wrap">
-        </figcaption>
-        </div>
-      ) )} */}
+          <ReactPaginate
+          previousLabel={"Précedent"}
+          nextLabel={"Suivant"}
+          pageCount={pageCount}
+          onPageChange={changePage}
+          containerClassName={"paginationBttns"}
+          previousClassName={"PreviousBttn"}
+          nextClassName={"NextButtn"}
+          disabledClassName={"paginationDisabled"}
+          activeClassName={"paginationActive"}
+          />
+          {displayCourses}
+          
   {/* section of icons  --------------------------------------------------------*/}
               <section class="objectifs">
               <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

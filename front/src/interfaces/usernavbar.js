@@ -8,7 +8,7 @@ function Usernavbar()
           
            <e><img src="assets/images/logos/lg.jpg"/> </e>
            <h1>9arini</h1>
-          <a> <img src="assets/images/theUsers/myimg.png" /></a>
+          <a> <img src="assets/images/photoMooc.png" /></a>
          <c><img src="assets/images/theUsers/avatar.png"/></c> 
        </div>
    )

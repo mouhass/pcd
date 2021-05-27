@@ -37,7 +37,7 @@ function Userbody(props)
        
             
         return(
-        <div>
+        <div className="theContainer">
             {variable}
              {userData.user ? (
                 
@@ -48,7 +48,8 @@ function Userbody(props)
            
             <br/><br/><br/><br/>
             <div className="ajustement">
-               <h1>Mes cours preferé</h1>
+               <h1>Mes cours preferés</h1>
+               <br/><br/>
                <div className="myCourses">
                    
                    
