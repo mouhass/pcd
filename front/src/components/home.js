@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import Header from './header';
 import Axios from 'axios';
 import OurCourses from './OurCourses';
-import Pagination from './Pagination';
+
 import ReactPaginate from 'react-paginate';
 function Home(props) {
 
