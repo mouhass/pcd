@@ -21,21 +21,23 @@ function ContenuCours(props)
                      </iframe>
     }
 
-    let nomDuCours="";
-    
-    {Array.from(coursData.cours).map(x=> x._id===y.idd ?  nomDuCours=x.nomCours : <div></div>    )}
-    let theID = "";
+    let cours;
     let nomProf = "";
+    {Array.from(coursData.cours).map(x=>{
+        if (x._id===y.idd){ 
+            cours=x;
+            console.log(x);
+        };
+    
+    })}
 
     useEffect(()=>{
         Axios.get('http://localhost:3003/readUsers').then((response)=>{setLitsUsers(response.data)})
       },[]);
 
     
-
-    {Array.from(coursData.cours).map(x=>x._id===y.idd ?  theID=x.idProf :  <div></div>)}
    
-    {listUsers.map(x=> x._id===theID ? nomProf=x.nom : <div></div>)}
+    {if (cours) listUsers.map(x=> x._id===cours.idProf ? nomProf=x.nom : <div></div>)}
 
      let mot1="";
      let mot2="";
@@ -43,16 +45,39 @@ function ContenuCours(props)
      let def1="";
      let def2="";
      let def3="";
-     let idLessonss="";
      let avancement;
+     let lessons=[];
+     let lessonIndex;
+
      if (userData.user){ 
          Array.from(userData.user.user.Avancements).map(q=> {
              if (q.idCours===y.idd){
                 avancement = q;
-                idLessonss = q.idLesson;
+                if (coursData.cours){ 
+                    Array.from(coursData.cours).map(x=>{
+                        if (x._id===y.idd){
+                            Array.from(x.lessons).map((y, i)=>{
+                                lessons.push(y)
+                                if (y.id==avancement.idLesson) {
+                                    lessonIndex = i;
+                                }
+                            })
+                             }
+                       })  
+               }
+            
+            
              }
             })  
     }
+
+    console.log(avancement);
+
+    /*console.log(lessons);
+    console.log(lessons[lessonIndex].sourceVideo);*/
+
+
+
     const toggle1=()=>{
         var pop = document.getElementById("popup1");
         pop.classList.toggle('active');
@@ -71,35 +96,65 @@ function ContenuCours(props)
 
 
      let maListe = [];
-    { coursData.cours ? Array.from(coursData.cours).map(q=> q._id===y.idd ? q.lessons.map(x=>x.id===idLessonss ?  x.Mots.map(z=>maListe.push(z.mot)) :<div></div>) : <div></div> ) : <div></div>}
-    { coursData.cours ? Array.from(coursData.cours).map(q=> q._id===y.idd ? q.lessons.map(x=>x.id===idLessonss ?  x.Mots.map(z=>maListe.push(z.definition)) :<div></div>) : <div></div> ) : <div></div>}
+    { coursData.cours ? Array.from(coursData.cours).map(q=> q._id===y.idd ? q.lessons.map(x=>x.id===avancement.idLesson ?  x.Mots.map(z=>maListe.push(z.mot)) :<div></div>) : <div></div> ) : <div></div>}
+    { coursData.cours ? Array.from(coursData.cours).map(q=> q._id===y.idd ? q.lessons.map(x=>x.id===avancement.idLesson ?  x.Mots.map(z=>maListe.push(z.definition)) :<div></div>) : <div></div> ) : <div></div>}
 
     {mot1=maListe[0]; mot2=maListe[1];mot3=maListe[2];def1=maListe[3]; def2=maListe[4];def3=maListe[5] }
 
     const updateNiveau=async ()=>{
+        console.log(avancement.nbrelesson);
         const res = await Axios.post('http://localhost:3003/users/niveau',{score: avancement.score, nbrelesson: avancement.nbrelesson});
         avancement.niveau = res.data;
         avancement.nbrelesson++;
+        console.log(avancement.nbrelesson);
         Array.from(userData.user.user.Avancements).map(q=> {
             if (q.idCours===y.idd){
                q=avancement;
             }
         })
-        console.log(userData.user.user);
+        lessonIndex++; 
+            
+        if (lessonIndex>= lessons.length) {
+            console.log("Terminé");
+            avancement.estTermine = true;
+            let q = await Axios.post('http://localhost:3003/users/update', userData.user.user);
+            setUserData(userData); 
+            window.location.reload();
+            return
+        }
+        while (avancement.niveau != lessons[lessonIndex].niveau ) {
+            if ((avancement.niveau == "debutant") &&  (lessons[lessonIndex].niveau != "debutant")){
+                lessonIndex++;
+            }
+            if ((avancement.niveau == "Intermediaire") &&  (lessons[lessonIndex].niveau == "avancé")){
+                lessonIndex++;
+            }
+        }
+        avancement.idLesson=lessons[lessonIndex].id;
+        Array.from(userData.user.user.Avancements).map(q=> {
+            if (q.idCours===y.idd){
+               q=avancement;
+            }
+        })
+
         console.log(avancement);
+        console.log(lessons[lessonIndex]);
+
         let q = await Axios.post('http://localhost:3003/users/update', userData.user.user);
            setUserData(userData);
+           
+           window.location.reload();
+
      }
 
 
-    return(
-        <div >   
-                
-                
-                <div className="navbarr">
-                
-                    <h3>{nomDuCours}</h3>
 
+    return(
+        <div>   
+            {avancement && !avancement.estTermine ?
+                 <div>
+                 <div className="navbarr">
+                    <h3>{cours ? cours.nomCours : <div></div>}</h3>
                     <p>Réalisé par l'enseignant {nomProf} </p>
                     <img  src="assets/images/python.jpg"/>
                 </div>
@@ -108,7 +163,7 @@ function ContenuCours(props)
                 <div className="leBody">
                     <div className="vid">
                     
-                    <iframe width="50%" height="315" src="https://www.youtube.com/embed/JGASDKLZcdw?modestbranding=1&controls=0;rel=1&playlist=VIDEO_ID&loop=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="50%" height="315" src={lessons && lessons.length ? lessons[lessonIndex].sourceVideo : ""} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                     </div>
                     <div id="popup1" className="popup">
@@ -133,7 +188,9 @@ function ContenuCours(props)
 
                     </div>
                     <button onClick={()=>updateNiveau()}   className="theButton">NEXT</button>
-                  </div>
+                  </div></div>
+                  : <div><h1>Cours Terminé</h1></div>
+                }
 
                   <div className="retourArriere">
                   <a href="/usersPage">Retour au profil</a> 
