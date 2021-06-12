@@ -181,8 +181,8 @@ function ContenuCours(props)
                     
                     <div className="Droite">
                         <h1 id="inlineFrameExample">
-                            <h1 onClick={()=>toggle1()}>{mot1}</h1>
-                            <h1 onClick={()=>toggle2()}>{mot2}</h1>
+                            <h1 onClick={()=>toggle1()}>{mot1}</h1><br/>
+                            <h1 onClick={()=>toggle2()}>{mot2}</h1><br/>
                             <h1 onClick={()=>toggle3()}>{mot3}</h1>
                        </h1>
 

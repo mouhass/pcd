@@ -13,12 +13,17 @@ function CoursCard(props){
      
      const { userData,setUserData } = useContext(UserContext);
      const { coursData,setCoursData } = useContext(CoursContext);
+     let nomDuCours="";
+     let lienImage="";
+     { coursData.cours.map(x=> x._id ===  props.data ? nomDuCours= x.nomCours : <div></div>)}
+     { coursData.cours.map(x=> x._id ===  props.data ? lienImage= x.image : <div></div>)}
+
 
     return(
         <div>
                 <div className="card">
-                    <img src="assets/images/python.jpg"/>
-                   <h3 className="cardTitle"> <a onClick={()=>redirigi(props.data)}>{ coursData.cours.map(x=> x._id ===  props.data ?  x.nomCours : <div></div>)}</a></h3>
+                    <img src={lienImage}/>
+                   <h3 className="cardTitle"> <a onClick={()=>redirigi(props.data)}>{nomDuCours}</a></h3>
                   
                 </div>
         </div>

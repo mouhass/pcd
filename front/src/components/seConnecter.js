@@ -39,11 +39,17 @@ return (
             <h2>Login</h2>
             {error && <ErrorNotice message={error} clearError={() => setError(undefined)} />}
             <form onSubmit={submit}>
-                <label>Email: </label>
-                <input type="email" id="email" onChange={e => setEmail(e.target.value)}/>
-                <label>Password: </label>
-                <input type="password" id="password" onChange={e => setPassword(e.target.value)}/>
-                <input type="submit" value="Login" className="btn btn-primary" />
+                 <div className="email">
+                
+                <input type="email" id="email" className="email2"  onChange={e => setEmail(e.target.value)} placeholder="Email"/>
+                </div> 
+
+                <div className="password">
+                
+                <input type="password" id="password"  className="password2" onChange={e => setPassword(e.target.value)} placeholder="mot de passe"/>
+                </div>
+                
+                <input type="submit" value="Login" className="bbt" />
             </form>
         </div>
     );

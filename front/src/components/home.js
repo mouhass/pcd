@@ -59,6 +59,7 @@ const changePage=({selected})=>{
           nextClassName={"NextButtn"}
           disabledClassName={"paginationDisabled"}
           activeClassName={"paginationActive"}
+          
           />
           {displayCourses}
           

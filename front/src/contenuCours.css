@@ -114,8 +114,8 @@
 }
 
 .theButton{
-    margin-left : 78%;
-    margin-top : 10%;
+    margin-left : 80%;
+    margin-top : 3%;
     width : 130px;
     height : 60px;
     background-color: #ADD8E6;
@@ -131,5 +131,5 @@
 
 .retourArriere{
     margin-left : 1%;
-    margin-top : 3%;
+    margin-top : -3%;
 }

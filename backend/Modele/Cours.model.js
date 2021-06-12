@@ -7,7 +7,7 @@ const coursSchema = new mongoose.Schema(
     idProf : {type: Schema.Types.ObjectId, ref: 'Users'},
     description :  String,
     durée : Number,
-
+      image: String,
     lessons : [{
                 sourceVideo :  String,
                 niveau :  String,
