@@ -81,11 +81,9 @@ router.post("/login", async (req, res) => {
     }
   });
 
-
-
-router.delete("/delete", auth, async (req, res) => {
+router.post("/delete", async (req, res) => {
     try {
-      const deletedUser = await User.findByIdAndDelete(req.user);
+      const deletedUser = await User.findByIdAndDelete(req.body);
       res.json(deletedUser);
     } catch (err) {
       res.status(500).json({ error: err.message });

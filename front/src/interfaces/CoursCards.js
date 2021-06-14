@@ -15,16 +15,23 @@ function CoursCard(props){
      const { coursData,setCoursData } = useContext(CoursContext);
      let nomDuCours="";
      let lienImage="";
-     { coursData.cours.map(x=> x._id ===  props.data ? nomDuCours= x.nomCours : <div></div>)}
-     { coursData.cours.map(x=> x._id ===  props.data ? lienImage= x.image : <div></div>)}
-
+     let niveau="";
+     coursData.cours.map(x=> {if (x._id ===  props.data) {
+        nomDuCours= x.nomCours;
+        lienImage= x.image;
+     }} )
+     Array.from(userData.user.user.Avancements).map(q=> {
+        if (q.idCours===props.data){
+           niveau = q.niveau;
+        }
+    })
 
     return(
         <div>
                 <div className="card">
                     <img src={lienImage}/>
                    <h3 className="cardTitle"> <a onClick={()=>redirigi(props.data)}>{nomDuCours}</a></h3>
-                  
+                   {niveau}                
                 </div>
         </div>
     )
