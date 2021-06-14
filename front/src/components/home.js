@@ -9,9 +9,6 @@ import OurCourses from './OurCourses';
 import ReactPaginate from 'react-paginate';
 function Home(props) {
 
-
-
-
   const [listeCours,setListeCours]= useState([]);
   const [pageNumber,setPageNumber]=useState(0);
   const coursPerPage = 9;
@@ -24,7 +21,7 @@ function Home(props) {
   },[])
   
    const displayCourses = listeCours.slice(pagesVisited,pagesVisited + coursPerPage)
-    .map(x=><h1 className="cardTitle"><OurCourses data={x._id} /></h1>);
+    .map(x=><h1 className="cardTitle" ><OurCourses data={x._id} /></h1>);
 
 
  const pageCount = Math.ceil(listeCours.length /coursPerPage );

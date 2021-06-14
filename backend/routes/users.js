@@ -9,6 +9,7 @@ const User = require("../Modele/Users.model");
 router.post("/register", async (req, res) => {
     try {
       let { email, password, passwordCheck, nom, descrimination } = req.body;
+      console.log(descrimination);
   
       if (!email || !password || !passwordCheck)
         return res.status(400).json({ msg: "Not all fields have been entered." });

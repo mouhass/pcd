@@ -7,15 +7,18 @@ import CoursContext from "../context/coursContext";
 function CoursCard(props){
     const history = useHistory();
     
-    const redirigi=(id)=>{
-    history.push("/contenuCours",{idd : id});
-    }
      
      const { userData,setUserData } = useContext(UserContext);
      const { coursData,setCoursData } = useContext(CoursContext);
      let nomDuCours="";
      let lienImage="";
      let niveau="";
+     const redirigi=(id)=>{
+        if (userData.user.user.descrimination == 1) {
+            history.push("/contenuCours",{idd : id});
+        }
+    }
+    
      coursData.cours.map(x=> {if (x._id ===  props.data) {
         nomDuCours= x.nomCours;
         lienImage= x.image;

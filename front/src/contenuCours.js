@@ -73,10 +73,6 @@ function ContenuCours(props)
 
     console.log(avancement);
 
-    /*console.log(lessons);
-    console.log(lessons[lessonIndex].sourceVideo);*/
-
-
 
     const toggle1=()=>{
         var pop = document.getElementById("popup1");
@@ -114,7 +110,7 @@ function ContenuCours(props)
         })
         lessonIndex++; 
             
-        if (lessonIndex>= lessons.length) {
+        if (lessonIndex >= lessons.length) {
             console.log("Terminé");
             avancement.estTermine = true;
             let q = await Axios.post('http://localhost:3003/users/update', userData.user.user);
@@ -141,8 +137,7 @@ function ContenuCours(props)
         console.log(lessons[lessonIndex]);
 
         let q = await Axios.post('http://localhost:3003/users/update', userData.user.user);
-           setUserData(userData);
-           
+           setUserData(userData); 
            window.location.reload();
 
      }

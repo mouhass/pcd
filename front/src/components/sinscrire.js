@@ -11,7 +11,7 @@ function Sinscrire () {
     const [nom, setNom] = useState();
     const [password, setPassword] = useState();
     const [passwordCheck, setPasswordCheck] = useState();
-    const [descrimination, setDescrimination] = useState();
+    let descrimination = 1;
     const [error, setError] = useState();
 
     const { setUserData } = useContext(UserContext);
@@ -23,17 +23,19 @@ function Sinscrire () {
         try{
             var radios = document.getElementsByName('etat');
             for (var i = 0, length = radios.length; i < length; i++) {
-                if (radios[i].checked) {            
+                if (radios[i].checked) {   
+                    console.log(radios[i].value);         
                     switch(radios[i].value)
-                    {
-                        case "etudiant" : setDescrimination(1);
-                        case "prof" : setDescrimination(2);               
+                    {                
+                        case "etudiant" : {descrimination = (1);break;}
+                        case "prof" : {descrimination = (2);break;}          
                     }
                         break;
                 }
             }
-        
+            
             const newUser = {email, password, passwordCheck, nom, descrimination};
+            console.log(newUser);
             await axios.post("http://localhost:3003/users/register", newUser);
             const loginResponse = await axios.post("http://localhost:3003/users/login", {
                 email, password
@@ -45,7 +47,7 @@ function Sinscrire () {
             localStorage.setItem("auth-token", loginResponse.data.token);
             history.push("/");
         } catch(err) {
-            err.response.data.msg && setError(err.response.data.msg)
+           // err.response.data.msg && setError(err.response.data.msg)
         }
         
     };
@@ -66,8 +68,8 @@ function Sinscrire () {
                 <label>Password: </label>
                 <input type="password" id="pw" onChange={e => setPassword(e.target.value)}/>
                 <input type="password" placeholder="Confirm password" onChange={e => setPasswordCheck(e.target.value)}/>
-                <input type="radio" value="etudiant" id="radioEtudiant" name="etat"/><label> Etudiant</label><br/>
                 <input type="radio" value="prof" id="radioProfesseur" name="etat"/><label> Professeur</label>
+                <input type="radio" value="etudiant" id="radioEtudiant" name="etat"/><label>Etudiant</label><br/>
 
                 <input type="submit" value="Register" className="btn btn-primary" />
             </form>
