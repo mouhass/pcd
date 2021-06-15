@@ -48,6 +48,7 @@ function ContenuCours(props)
      let avancement;
      let lessons=[];
      let lessonIndex;
+     let clicked1 = false, clicked2 = false;
 
      if (userData.user){ 
          Array.from(userData.user.user.Avancements).map(q=> {
@@ -71,9 +72,6 @@ function ContenuCours(props)
             })  
     }
 
-    console.log(avancement);
-
-
     const toggle1=()=>{
         var pop = document.getElementById("popup1");
         pop.classList.toggle('active');
@@ -82,12 +80,18 @@ function ContenuCours(props)
     const toggle2=()=>{
         var pop = document.getElementById("popup2");
         pop.classList.toggle('active');
-        avancement.score++;
+        if (!clicked1){
+            avancement.score++;
+            clicked1 = true;
+        }
     }
     const toggle3=()=>{
         var pop = document.getElementById("popup3");
         pop.classList.toggle('active');
-        avancement.score +=3;
+        if (!clicked2){
+            avancement.score+=3;
+            clicked2 = true;
+        }
     }
 
 
@@ -98,18 +102,19 @@ function ContenuCours(props)
     {mot1=maListe[0]; mot2=maListe[1];mot3=maListe[2];def1=maListe[3]; def2=maListe[4];def3=maListe[5] }
 
     const updateNiveau=async ()=>{
-        console.log(avancement.nbrelesson);
         const res = await Axios.post('http://localhost:3003/users/niveau',{score: avancement.score, nbrelesson: avancement.nbrelesson});
         avancement.niveau = res.data;
         avancement.nbrelesson++;
-        console.log(avancement.nbrelesson);
+
         Array.from(userData.user.user.Avancements).map(q=> {
             if (q.idCours===y.idd){
                q=avancement;
+               console.log(res.data);
+
             }
         })
         lessonIndex++; 
-            
+        
         if (lessonIndex >= lessons.length) {
             console.log("Terminé");
             avancement.estTermine = true;
@@ -118,32 +123,28 @@ function ContenuCours(props)
             window.location.reload();
             return
         }
-        while (avancement.niveau != lessons[lessonIndex].niveau ) {
+        
+        while (1) {
             if ((avancement.niveau == "debutant") &&  (lessons[lessonIndex].niveau != "debutant")){
                 lessonIndex++;
             }
             if ((avancement.niveau == "Intermediaire") &&  (lessons[lessonIndex].niveau == "avancé")){
                 lessonIndex++;
             }
+            break;
         }
+
         avancement.idLesson=lessons[lessonIndex].id;
         Array.from(userData.user.user.Avancements).map(q=> {
             if (q.idCours===y.idd){
                q=avancement;
             }
         })
-
-        console.log(avancement);
-        console.log(lessons[lessonIndex]);
-
         let q = await Axios.post('http://localhost:3003/users/update', userData.user.user);
            setUserData(userData); 
            window.location.reload();
 
      }
-
-
-
     return(
         <div>   
             {avancement && !avancement.estTermine ?

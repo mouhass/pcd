@@ -24,21 +24,21 @@ function OurCourses(props)
         }
         })
         const redirigi= async (id)=>{
-            if(userData.user || c){
-            let av = userData.user.user.Avancements;
-            av.push({
-                idCours : c._id,
-                idLesson : c.lessons[0].id,
-                nbrelesson : 0,
-                estTermine : false,
-                score : 0,
-                niveau : "debutant"
-            })
-            /* --------------------- */
-            let q = await Axios.post('http://localhost:3003/users/update', userData.user.user);
-            console.log(av);
-            history.push("/contenuCours",{idd : id});
+            if(userData.user && c){
+                let av = userData.user.user.Avancements;
+                av.push({
+                    idCours : c._id,
+                    idLesson : c.lessons[0].id,
+                    nbrelesson : 0,
+                    estTermine : false,
+                    score : 0,
+                    niveau : "debutant"
+                })
+                let q = await Axios.post('http://localhost:3003/users/update', userData.user.user);
+                console.log(av);
+                history.push("/contenuCours",{idd : id});
             }
+            else history.push("/sinscrire");
         }
     
     return(
