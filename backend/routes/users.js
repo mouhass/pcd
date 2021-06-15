@@ -119,6 +119,7 @@ router.get("/", auth, async (req, res) => {
     .post('http://127.0.0.1:9000/api', [[req.body.score ,req.body.nbrelesson]])
     .then(r => {
       let niveau="debutant";
+      console.log(r.data);
       if (r.data==1)  niveau="intermediaire"
         else if(r.data==2)  niveau="avancé"
       res.send(niveau);

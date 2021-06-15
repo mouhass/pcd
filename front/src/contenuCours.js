@@ -103,9 +103,9 @@ function ContenuCours(props)
 
     const updateNiveau=async ()=>{
         const res = await Axios.post('http://localhost:3003/users/niveau',{score: avancement.score, nbrelesson: avancement.nbrelesson});
-        avancement.niveau = res.data;
+       avancement.niveau = res.data;
         avancement.nbrelesson++;
-
+        console.log(avancement.score)
         Array.from(userData.user.user.Avancements).map(q=> {
             if (q.idCours===y.idd){
                q=avancement;
@@ -125,7 +125,7 @@ function ContenuCours(props)
         }
         
         while (1) {
-            if ((avancement.niveau == "debutant") &&  (lessons[lessonIndex].niveau != "debutant")){
+   if ((avancement.niveau == "debutant") &&  (lessons[lessonIndex].niveau != "debutant")){
                 lessonIndex++;
             }
             if ((avancement.niveau == "Intermediaire") &&  (lessons[lessonIndex].niveau == "avancé")){
@@ -183,11 +183,14 @@ function ContenuCours(props)
                        </h1>
 
                     </div>
+                    <div className="btn btn-secondary"> Niveau {avancement.nbrelesson==1 ? <div>debutant</div> :avancement.niveau} </div>
+
                     <button onClick={()=>updateNiveau()}   className="theButton">NEXT</button>
                   </div></div>
                   : <div><h1>Cours Terminé</h1></div>
                 }
 
+                    <br/><br/><br/>
                   <div className="retourArriere">
                   <a href="/usersPage">Retour au profil</a> 
                   </div>
